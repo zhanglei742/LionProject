@@ -12,46 +12,46 @@ import com.loginmodel.service.*;
 @RequestMapping("/Receive")
 public class ChatWithApp  {
 
-	@RequestMapping("/SendCode")
-	@ResponseBody
-		//======注解方式 参数
-	public String SendCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//HttpServletRequest req, HttpServletResponse rep
-		String webphone = request.getParameter("inputPhoneET");
-		String weblocation = request.getParameter("location");
-		//String webphone ="130";
-		//String weblocation ="1";
-		System.out.println("后端接受用户第一次传来的信息");
-
-		//======添加service层
-		InterfaceClass interfaceClass= new AchieveInterfaceClass();
-		if (interfaceClass.SendCode(webphone, weblocation)) {
-			//返回1表明验证码无误并成功
-			return "1";
-		} else
-			//返回1表明验证码输入错误
-			return "0";
-			
-	}
-	@RequestMapping("/CheckCode")
-	@ResponseBody
-	public String CheckCode(HttpServletRequest request, HttpServletResponse response)throws Exception
-	{
-		//Integer phone, Integer location, Integer code
-//		String  phone1 ="130";
-//		String location2 ="1";
-//		String code3 = "4321";
-		String secondphone =request.getParameter("phonenumber");
-		String secondlocation =request.getParameter("location");
-		String secondcode =request.getParameter("code");
-		System.out.println("匹配验证码信息：用户第二次传来的手机号为：" + secondphone + "；功能位置：" + secondlocation+ "；验证码：" + secondcode);
-
-		InterfaceClass interfaceClass= new AchieveInterfaceClass();
-		if (interfaceClass.CheckCode(secondphone, secondlocation,secondcode)) {
-			return "传给前端：信息已经匹配";
-		} else
-			return "传给前端：信息不匹配";
-	}
+//	@RequestMapping("/SendCode")
+//	@ResponseBody
+//		//======注解方式 参数
+//	public String SendCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		//HttpServletRequest req, HttpServletResponse rep
+//		String webphone = request.getParameter("inputPhoneET");
+//		String weblocation = request.getParameter("location");
+//		//String webphone ="130";
+//		//String weblocation ="1";
+//		System.out.println("后端接受用户第一次传来的信息");
+//
+//		//======添加service层
+//		InterfaceClass interfaceClass= new AchieveInterfaceClass();
+//		if (interfaceClass.SendCode(webphone, weblocation)) {
+//			//返回1表明验证码无误并成功
+//			return "1";
+//		} else
+//			//返回1表明验证码输入错误
+//			return "0";
+//			
+//	}
+//	@RequestMapping("/CheckCode")
+//	@ResponseBody
+//	public String CheckCode(HttpServletRequest request, HttpServletResponse response)throws Exception
+//	{
+//		//Integer phone, Integer location, Integer code
+////		String  phone1 ="130";
+////		String location2 ="1";
+////		String code3 = "4321";
+//		String secondphone =request.getParameter("phonenumber");
+//		String secondlocation =request.getParameter("location");
+//		String secondcode =request.getParameter("code");
+//		System.out.println("匹配验证码信息：用户第二次传来的手机号为：" + secondphone + "；功能位置：" + secondlocation+ "；验证码：" + secondcode);
+//
+//		InterfaceClass interfaceClass= new AchieveInterfaceClass();
+//		if (interfaceClass.CheckCode(secondphone, secondlocation,secondcode)) {
+//			return "传给前端：信息已经匹配";
+//		} else
+//			return "传给前端：信息不匹配";
+//	}
 	@RequestMapping("/login")
 	@ResponseBody
 	//注解方式获取参数
