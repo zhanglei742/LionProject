@@ -11,10 +11,14 @@ import javax.annotation.Resource;
 
 public class DBUTIL {
 
-	String url="jdbc:mysql://localhost/mydbfortest?useSSL=false";
-	String name="com.mysql.cj.jdbc.Driver";
-	String user="root";
-	String password="123";
+//	String url="jdbc:mysql://localhost/mydbfortest?useSSL=false";
+//	String name="com.mysql.cj.jdbc.Driver";
+//	String user="root";
+//	String password="123";
+	String url="";
+	String name="";
+	String user="";
+	String password="";
 	public Connection conn = null;
 	public PreparedStatement pst = null;
 	public ResultSet rst=null;
@@ -30,7 +34,7 @@ public class DBUTIL {
 	}
 	public DBUTIL(String sql) {
 		try {
-			//Init();
+			Init();
 			Class.forName(name);//指定连接类型
 			conn = DriverManager.getConnection(url, user, password);//获取连接
 			pst = conn.prepareStatement(sql);//准备执行语句

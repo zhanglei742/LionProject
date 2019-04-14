@@ -14,21 +14,22 @@ import java.util.Properties;
 
 public class JedisPoolUtils {
 	private static Logger logger = Logger.getLogger(JedisPoolUtils.class);
+
     // Redis 服务器 IP
   //private Properties properties = new Properties();
-   // private String address = "";
-    private String address = "127.0.0.1";
+    private String address = "";
+    //private String address = "127.0.0.1";
     //private String address =  properties.getProperty("redis_address");
     // Redis的端口号
-    private int port = 6379;
-   // private int port;
+    //private int port = 6379;
+    private int port;
     // 访问密码
-    private String password = "12345";
-    //private String password ="";
+    //private String password = "12345";
+    private String password ="";
     //port =properties.getProperty("redis_port");
     // 连接 redis 等待时间
-   // private int timeOut = 10000;
-    private int timeOut;
+    private int timeOut = 10000;
+    //private int timeOut;
     // 可用连接实例的最大数目，默认值为8；
     // 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
     private int maxTotal = 1024;
@@ -53,10 +54,20 @@ public class JedisPoolUtils {
 
     // 连接池
     private JedisPool jedisPool = null;
-    
+    //初始化数据库连接参数
+    void Init() throws Exception
+    {
+        Properties prop=new Properties();
+        prop.load(Resource.class.getResourceAsStream("/application.properties"));
+        address=prop.getProperty("redis_address","");
+        port=Integer.parseInt(prop.getProperty("redis_port","0"));
+        password=prop.getProperty("redis_password","");
+
+    }
     // 构造函数
     public JedisPoolUtils() {
         try {
+            Init();
             JedisPoolConfig config = new JedisPoolConfig();
             config.setMaxTotal(maxTotal);
             config.setMaxIdle(maxIdle);
