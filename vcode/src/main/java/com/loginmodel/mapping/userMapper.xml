@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="con.loginmodel.mapping.userMapper">
+    <!-- 在select标签中编写查询的SQL语句， 设置select标签的id属性为getUser，id属性值必须是唯一的，不能够重复
+    使用parameterType属性指明查询时使用的参数类型，resultType属性指明查询返回的结果集类型
+    resultType="me.gacl.domain.User"就表示将查询结果封装成一个User类的对象返回
+    User类就是users表所对应的实体类
+    -->
+    <!--根据手机号查询得到一个user对象-->
+    <select id="getUser" parameterType="long" 
+        resultType="com.loginmodel.entity.User">
+        select * from users where phonenumber=#{phonenumber}
+    </select>
+   <!--插入手机号，密码 -->
+    <insert id="addUser_phone_pwd" parameterType="com.loginmodel.entity.User">
+   insert into users(phonenumber,pwd,name) values(#{phonenumber},#{pwd},#{name})
+    </insert>
+    <!-- 更新用户名 -->
+    <update id="updateUser_name" parameterType="com.loginmodel.entity.User">
+    update users set name=#{name} where phonenumber=#{phonenumber}
+    </update>
+    <!-- 更新邮箱 -->
+    <update id="updateUser_email" parameterType="com.loginmodel.entity.User">
+    update users set eamil=#{email} where phonenumber=#{phonenumber}
+    </update>
+    <!-- 更新密码 -->
+    <update id="updateUser_pwd" parameterType="com.loginmodel.entity.User">
+    update users set pwd=#{pwd} where phonenumber=#{phonenumber}
+    </update>
+    
+    
+    
+</mapper>
