@@ -3,6 +3,7 @@ package com.loginmodel.Pojo;
 public class Property {
 	private  String phone;
 	private  String location;
+	private  String code;
 	public String getLocation() {
 		return location;
 	}
@@ -21,6 +22,6 @@ public class Property {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	private  String code;
+	
 	
 }

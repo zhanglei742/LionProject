@@ -1,5 +1,11 @@
 package com.loginmodel.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo.None;
+import com.loginmodel.entity.User;
+
 class LoginDaoImpl implements LoginDao
 { 	
 	public  boolean InsertInfoToDB(String number,String password) 
@@ -27,6 +33,25 @@ class LoginDaoImpl implements LoginDao
 		if(com.loginmodel.dao.DBhelper.UpdateNameByPhone("user", phone, name))
 			return true;
 		else return false;
+	}
+	
+	public boolean PhoneExist(long phone) {
+		// TODO Auto-generated method stub
+		 Map<String, User> info=new HashMap<String,User>();
+		 info=com.loginmodel.dao.DBhelper.getUser(phone);
+		 if(info.get("user")==null)
+		{
+			return false;
+		}
+		else return true;
+	}
+	public boolean AddUser(long phone,String pwd)
+	{
+		if(!PhoneExist(phone))
+		{com.loginmodel.dao.DBhelper.addUser_phone_pwd(phone,pwd);
+		return true;}
+		else return false;
+		
 	}
 	
 };

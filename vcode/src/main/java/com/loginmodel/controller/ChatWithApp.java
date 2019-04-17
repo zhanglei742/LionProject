@@ -91,6 +91,30 @@ public class ChatWithApp  {
 		} else
 			return "0";
 	}
+	@RequestMapping("/IfPhoneExit")
+	@ResponseBody
+	public String IfPhoneExit(HttpServletRequest req, HttpServletResponse rep) throws Exception {
+		long phone =Long.parseLong( req.getParameter("phone"));
+		LoginDao op = new LoginDaoImpl();
+		System.out.println(phone+" : 号码是否存在?");
+		if (op.PhoneExist(phone)) {
+			return phone+" : phoneExist";
+		} else
+			return phone+": phoneNoExist";
+	}
+	@RequestMapping("/AddUser")
+	@ResponseBody
+	public String AddUser(HttpServletRequest req, HttpServletResponse rep) throws Exception {
+		long phone =Long.parseLong( req.getParameter("phone"));
+		String pwd=req.getParameter("pwd");
+		LoginDao op = new LoginDaoImpl();
+		System.out.println(phone+" : 开始插入");
+		if (op.AddUser(phone, pwd)) {
+			return phone+" : 插入成功";
+		} else
+			return phone+": 插入失败";
+	}
+	
 /*	@RequestMapping("/test")
 	public void test(HttpServletRequest request,HttpServletResponse response) throws IOException
 	{
