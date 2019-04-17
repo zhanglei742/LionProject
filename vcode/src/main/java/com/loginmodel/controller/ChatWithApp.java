@@ -1,13 +1,12 @@
 package com.loginmodel.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.loginmodel.entity.User;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.ResponseBody;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Enumeration;
-import com.loginmodel.service.*;
 @RestController
 @RequestMapping("/Receive")
 public class ChatWithApp  {
@@ -52,49 +51,16 @@ public class ChatWithApp  {
 //		} else
 //			return "传给前端：信息不匹配";
 //	}
-	@RequestMapping("/login")
-	@ResponseBody
-	//注解方式获取参数
-	public String Login(HttpServletRequest req, HttpServletResponse rep) throws Exception {
-		String username = req.getParameter("username");
-		String pass = req.getParameter("pass");
-		System.out.println("使用Spring内置的支持" + username + "--->" + pass);
-		//确实service层
-		LoginDao op = new LoginDaoImpl();
-		if (op.MatchInfo(username, pass)) {
-			return "1";
-		} else
-			return "0";
-	}
-	@RequestMapping("/register")
-	@ResponseBody
-	public String Register(HttpServletRequest req, HttpServletResponse rep) throws Exception {
-		String username = req.getParameter("username");
-		String pass = req.getParameter("pass");
-		System.out.println("使用Spring内置的支持" + username + "--->" + pass);
-		LoginDao op = new LoginDaoImpl();
-		if (op.InsertInfoToDB(username, pass)) {
-			return "1";
-		} else
-			return "0";
-	}
-	@RequestMapping("/updateusername")
-	@ResponseBody
-	public String UpdateUserName(HttpServletRequest req, HttpServletResponse rep) throws Exception {
-		String phone = req.getParameter("phone");
-		String name = req.getParameter("name");
-		req.setCharacterEncoding("utf-8");
-		System.out.println("使用Spring内置的支持" + phone + "--->" + name);
-		LoginDao op = new LoginDaoImpl();
-		if (op.UpdateName(phone,name)) {
-			return "1";
-		} else
-			return "0";
-	}
+	
+
 	@RequestMapping("/IfPhoneExit")
 	@ResponseBody
 	public String IfPhoneExit(HttpServletRequest req, HttpServletResponse rep) throws Exception {
-		long phone =Long.parseLong( req.getParameter("phone"));
+		long phone=0;
+		if(req.getParameter("phone")!=null)
+		{
+			 phone =Long.parseLong( req.getParameter("phone"));
+		}
 		LoginDao op = new LoginDaoImpl();
 		System.out.println(phone+" : 号码是否存在?");
 		if (op.PhoneExist(phone)) {
@@ -114,6 +80,39 @@ public class ChatWithApp  {
 		} else
 			return phone+": 插入失败";
 	}
+	@RequestMapping("/UpdateUserInfo")
+	@ResponseBody
+	public String UpdateUserInfo(HttpServletRequest req, HttpServletResponse rep) throws Exception {
+		User user=new User();
+		if(req.getParameter("phone")!=null)
+		{
+			user.setPhonenumber(Long.parseLong( req.getParameter("phone")));
+		}
+		else return "error：手机号为空";
+		if(req.getParameter("name")!=null)
+		{
+			user.setName(req.getParameter("name"));
+			
+		}
+		if(req.getParameter("pwd")!=null)
+		{
+			user.setPwd(req.getParameter("pwd"));
+		}
+		if(req.getParameter("email")!=null)
+		{
+			System.out.println("0email"+req.getParameter("email"));
+			user.setEmail(req.getParameter("email"));
+			System.out.println("1email"+user.getEmail());
+			
+		}
+		LoginDao op = new LoginDaoImpl();
+		//System.out.println(user.getPhonenumber()+" : 更改名字");
+		if (op.UpdateUserInfo(user.getPhonenumber(), user)) {
+			return "更新用户信心成功";
+		} 
+		else return "更新用户信息失败";
+	}
+	
 	
 /*	@RequestMapping("/test")
 	public void test(HttpServletRequest request,HttpServletResponse response) throws IOException

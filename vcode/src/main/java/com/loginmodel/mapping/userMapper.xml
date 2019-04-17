@@ -22,7 +22,7 @@
     </update>
     <!-- 更新邮箱 -->
     <update id="updateUser_email" parameterType="com.loginmodel.entity.User">
-    update users set eamil=#{email} where phonenumber=#{phonenumber}
+    update users set myemail=#{myemail} where phonenumber=#{phonenumber}
     </update>
     <!-- 更新密码 -->
     <update id="updateUser_pwd" parameterType="com.loginmodel.entity.User">
