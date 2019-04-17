@@ -1,0 +1,6 @@
+/1
+/vcode/src/main/java/com/loginmodel/service/*.java
+/vcode/src/main/java/com/loginmodel/service/AchieveInterfaceClass.java
+/vcode/src/main/java/com/loginmodel/dao/JedisPoolUtils.java
+/vcode/src/main/java/com/loginmodel/dao/BaseRedisServiceImpl.java
+/vcode/src/main/java/com/loginmodel/dao/HashRedisOperator.java
